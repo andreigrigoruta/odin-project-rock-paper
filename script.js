@@ -7,6 +7,14 @@ function getComputerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
+function computerWins(playerSelection, computerSelection) {
+  return (
+    (computerSelection === "Rock" && playerSelection === "Scissors") ||
+    (computerSelection === "Scissors" && playerSelection === "Paper") ||
+    (computerSelection === "Paper" && playerSelection === "Rock")
+  );
+}
+
 function playRound(playerSelection) {
   playerSelection =
     playerSelection.toLowerCase().charAt(0).toUpperCase() +
@@ -16,15 +24,11 @@ function playRound(playerSelection) {
   if (computerSelection === playerSelection) {
     return "Tie game!";
   }
-  if (
-    (computerSelection == "Rock" && playerSelection == "Scissors") ||
-    (computerSelection == "Scissors" && playerSelection == "Paper") ||
-    (computerSelection == "Paper" && playerSelection == "Rock")
-  ) {
-    computerScore = computerScore++;
+  if (computerWins(playerSelection, computerSelection)) {
+    computerScore++;
     return `You Lose! ${computerSelection} beats ${playerSelection}.`;
   }
-  playerScore = playerScore++;
+  playerScore++;
   return `You Won! ${playerSelection} beats ${computerSelection}.`;
 }
 
@@ -38,9 +42,9 @@ function game() {
     return "Draw!";
   }
   if (playerScore > computerScore) {
-    return "You Win! Congratulations";
+    return "You Win! Congratulations!";
   }
-  return "You Lost! Sorry!;";
+  return "You Lost! Sorry!";
 }
 
 console.log(game());
