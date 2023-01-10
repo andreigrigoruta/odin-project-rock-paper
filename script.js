@@ -15,32 +15,32 @@ function playRound(playerSelection) {
 
   if (computerSelection === playerSelection) {
     return "Tie game!";
-  } else if (
+  }
+  if (
     (computerSelection == "Rock" && playerSelection == "Scissors") ||
     (computerSelection == "Scissors" && playerSelection == "Paper") ||
     (computerSelection == "Paper" && playerSelection == "Rock")
   ) {
     computerScore = computerScore++;
-    return `You Lose! ${computerSelection} beats ${playerSelection}`;
-  } else {
-    playerScore = playerScore++;
-    return `You Won! ${playerSelection} beats ${computerScore}`;
+    return `You Lose! ${computerSelection} beats ${playerSelection}.`;
   }
+  playerScore = playerScore++;
+  return `You Won! ${playerSelection} beats ${computerSelection}.`;
 }
 
 function game() {
   for (let i = 0; i < 5; i++) {
     const playerSelection = prompt("Rock, Paper, Scissors?");
-    playRound(playerSelection);
+    console.log(playRound(playerSelection));
   }
 
   if (playerScore === computerScore) {
     return "Draw!";
-  } else if (playerScore > computerScore) {
-    return "You Win! Congratulations";
-  } else {
-    return "You Lost! Sorry!;";
   }
+  if (playerScore > computerScore) {
+    return "You Win! Congratulations";
+  }
+  return "You Lost! Sorry!;";
 }
 
 console.log(game());
