@@ -1,44 +1,46 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const choices = ["Rock", "Paper", "Scissors"];
+
 function getComputerChoice() {
-  const choice = Math.floor(Math.random() * 3);
+  return choices[Math.floor(Math.random() * choices.length)];
+}
 
-  switch (choice) {
-    case 0:
-      return "Rock";
-      break;
-    case 1:
-      return "Paper";
-      break;
-    case 2:
-      return "Scissors";
-      break;
+function playRound(playerSelection) {
+  playerSelection =
+    playerSelection.toLowerCase().charAt(0).toUpperCase() +
+    playerSelection.slice(1);
+  const computerSelection = getComputerChoice();
+
+  if (computerSelection === playerSelection) {
+    return "Tie game!";
+  } else if (
+    (computerSelection == "Rock" && playerSelection == "Scissors") ||
+    (computerSelection == "Scissors" && playerSelection == "Paper") ||
+    (computerSelection == "Paper" && playerSelection == "Rock")
+  ) {
+    computerScore = computerScore++;
+    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+  } else {
+    playerScore = playerScore++;
+    return `You Won! ${playerSelection} beats ${computerScore}`;
   }
 }
 
-function playRound(playerSelection, computerSelection) {
-  const player = playerSelection.toLowerCase();
-  const playerS = player.charAt(0).toUpperCase() + player.slice(1);
+function game() {
+  for (let i = 0; i < 5; i++) {
+    const playerSelection = prompt("Rock, Paper, Scissors?");
+    playRound(playerSelection);
+  }
 
-  switch (playerS) {
-    case "Rock":
-      if (computerSelection === "Rock") {
-        return "Draw!";
-      } else if (computerSelection === "Scissors") {
-        return "You Win! Rock beats Scissors!";
-      } else return "You Lose! Paper beats Rock!";
-      break;
-    case "Scissors":
-      if (computerSelection === "Scissors") {
-        return "Draw!";
-      } else if (computerSelection === "Paper") {
-        return "You Win! Scissors beats Paper!";
-      } else return "You Lose! Rock beats Scissors!";
-      break;
-    case "Paper":
-      if (computerSelection === "Paper") {
-        return "Draw!";
-      } else if (computerSelection === "Rock") {
-        return "You Win! Paper beats Rock!";
-      } else return "You Lose! Scissors beats Paper!";
-      break;
+  if (playerScore === computerScore) {
+    return "Draw!";
+  } else if (playerScore > computerScore) {
+    return "You Win! Congratulations";
+  } else {
+    return "You Lost! Sorry!;";
   }
 }
+
+console.log(game());
