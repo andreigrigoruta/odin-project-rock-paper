@@ -1,24 +1,24 @@
 let playerScore = 0;
 let computerScore = 0;
-
 const choices = ["Rock", "Paper", "Scissors"];
+const beats = {
+  Rock: "Scissors",
+  Scissors: "Paper",
+  Paper: "Rock",
+};
 
 function getComputerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
 function computerWins(playerSelection, computerSelection) {
-  return (
-    (computerSelection === "Rock" && playerSelection === "Scissors") ||
-    (computerSelection === "Scissors" && playerSelection === "Paper") ||
-    (computerSelection === "Paper" && playerSelection === "Rock")
-  );
+  return beats[computerSelection] === playerSelection;
 }
 
 function playRound(playerSelection) {
-  playerSelection =
-    playerSelection.toLowerCase().charAt(0).toUpperCase() +
-    playerSelection.slice(1);
+  playerSelection = playerSelection
+    .toLowerCase()
+    .replace(/^\w/, (c) => c.toUpperCase());
   const computerSelection = getComputerChoice();
 
   if (computerSelection === playerSelection) {
