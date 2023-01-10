@@ -1,3 +1,2 @@
 # odin-project-rock-paper
-
-Practice coding basic rock paper scissors
+The Odin Project Rock, Paper, Scissors Project
