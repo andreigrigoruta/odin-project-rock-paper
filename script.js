@@ -7,6 +7,10 @@ const beats = {
   Paper: "Rock",
 };
 
+function playerInputCase(playerSelection) {
+  return playerSelection.toLowerCase().replace(/^\w/, (c) => c.toUpperCase());
+}
+
 function getComputerChoice() {
   return choices[Math.floor(Math.random() * choices.length)];
 }
@@ -16,9 +20,7 @@ function computerWins(playerSelection, computerSelection) {
 }
 
 function playRound(playerSelection) {
-  playerSelection = playerSelection
-    .toLowerCase()
-    .replace(/^\w/, (c) => c.toUpperCase());
+  playerSelection = playerInputCase(playerSelection);
   const computerSelection = getComputerChoice();
 
   if (computerSelection === playerSelection) {
@@ -34,7 +36,14 @@ function playRound(playerSelection) {
 
 function game() {
   for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt("Rock, Paper, Scissors?");
+    let playerSelection = prompt("Rock, Paper, Scissors?");
+    playerSelection = playerInputCase(playerSelection);
+    while (choices.indexOf(playerSelection) === -1) {
+      playerSelection = prompt(
+        "Please choose a valid option: Rock, Paper, Scissors?"
+      );
+      playerSelection = playerInputCase(playerSelection);
+    }
     console.log(playRound(playerSelection));
   }
 
