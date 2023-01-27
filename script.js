@@ -6,9 +6,19 @@ const beats = {
   Scissors: "Paper",
   Paper: "Rock",
 };
-let rockBtn = document.getElementById("rock");
-let paperBtn = document.getElementById("paper");
-let scissorsBtn = document.getElementById("scissors");
+let winner = document.getElementById("winner");
+let results = document.getElementById("results");
+let playerS = document.getElementById("player-score");
+let computerS = document.getElementById("computer-score");
+let rockBtn = document
+  .getElementById("rock")
+  .addEventListener("click", playRound);
+let paperBtn = document
+  .getElementById("paper")
+  .addEventListener("click", playRound);
+let scissorsBtn = document
+  .getElementById("scissors")
+  .addEventListener("click", playRound);
 
 function playerInputCase(playerSelection) {
   return playerSelection.toLowerCase().replace(/^\w/, (c) => c.toUpperCase());
@@ -27,39 +37,26 @@ function playRound(e) {
   const computerSelection = getComputerChoice();
 
   if (computerSelection === playerSelection) {
-    console.log("Tie game!");
+    results.innerText = "Tie game!";
   } else {
     if (computerWins(playerSelection, computerSelection)) {
       computerScore++;
-      console.log(`You Lose! ${computerSelection} beats ${playerSelection}.`);
+      results.innerText = `You Lose! ${computerSelection} beats ${playerSelection}.`;
     } else {
-      console.log(`You Won! ${playerSelection} beats ${computerSelection}.`);
+      results.innerText = `You Won! ${playerSelection} beats ${computerSelection}.`;
       playerScore++;
     }
   }
+  if (playerScore === 5) {
+    winner.innerText = "Player wins the game! Congrats!";
+    playerScore = 0;
+    computerScore = 0;
+  }
+  if (computerScore === 5) {
+    winner.innerText = "Computer wins the game. Try your luck next time.";
+    playerScore = 0;
+    computerScore = 0;
+  }
+  playerS.innerText = `Player Score: ${playerScore}`;
+  computerS.innerText = `Computer Score: ${computerScore}`;
 }
-
-rockBtn.addEventListener("click", playRound);
-paperBtn.addEventListener("click", playRound);
-scissorsBtn.addEventListener("click", playRound);
-
-// function game() {
-//   let playerSelection = (playerSelection = playerInputCase(playerSelection));
-//   while (choices.indexOf(playerSelection) === -1) {
-//     playerSelection = prompt(
-//       "Please choose a valid option: Rock, Paper, Scissors?"
-//     );
-//     playerSelection = playerInputCase(playerSelection);
-//   }
-//   playRound(playerSelection);
-
-//   if (playerScore === computerScore) {
-//     return "Draw!";
-//   }
-//   if (playerScore > computerScore) {
-//     return "You Win! Congratulations!";
-//   }
-//   return "You Lost! Sorry!";
-// }
-
-//console.log(game());
