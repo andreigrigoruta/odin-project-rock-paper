@@ -38,6 +38,7 @@ function displayScore() {
 }
 
 function playRound(e) {
+  winner.innerText = "";
   playerSelection = playerInputCase(e.target.value);
   const computerSelection = getComputerChoice();
 
