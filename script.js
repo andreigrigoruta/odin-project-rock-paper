@@ -32,31 +32,35 @@ function computerWins(playerSelection, computerSelection) {
   return beats[computerSelection] === playerSelection;
 }
 
+function displayScore() {
+  playerS.innerText = `Player Score: ${playerScore}`;
+  computerS.innerText = `Computer Score: ${computerScore}`;
+}
+
 function playRound(e) {
   playerSelection = playerInputCase(e.target.value);
   const computerSelection = getComputerChoice();
 
   if (computerSelection === playerSelection) {
     results.innerText = "Tie game!";
+    displayScore();
+    return;
+  }
+  if (computerWins(playerSelection, computerSelection)) {
+    computerScore++;
+    results.innerText = `You Lose! ${computerSelection} beats ${playerSelection}.`;
   } else {
-    if (computerWins(playerSelection, computerSelection)) {
-      computerScore++;
-      results.innerText = `You Lose! ${computerSelection} beats ${playerSelection}.`;
-    } else {
-      results.innerText = `You Won! ${playerSelection} beats ${computerSelection}.`;
-      playerScore++;
-    }
+    results.innerText = `You Won! ${playerSelection} beats ${computerSelection}.`;
+    playerScore++;
   }
-  if (playerScore === 5) {
-    winner.innerText = "Player wins the game! Congrats!";
+
+  if (playerScore === 5 || computerScore === 5) {
+    winner.innerText =
+      playerScore === 5
+        ? "Player wins the game! Congrats!"
+        : "Computer wins the game. Try your luck next time.";
     playerScore = 0;
     computerScore = 0;
   }
-  if (computerScore === 5) {
-    winner.innerText = "Computer wins the game. Try your luck next time.";
-    playerScore = 0;
-    computerScore = 0;
-  }
-  playerS.innerText = `Player Score: ${playerScore}`;
-  computerS.innerText = `Computer Score: ${computerScore}`;
+  displayScore();
 }
